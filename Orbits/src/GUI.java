@@ -1,7 +1,7 @@
 //package animation;
 
 
-// Class for displaying the simulation 
+// Class for displaying the simulation in 2-D
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
