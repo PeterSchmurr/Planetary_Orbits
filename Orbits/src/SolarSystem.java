@@ -9,9 +9,9 @@ public class SolarSystem
 	static int AU = 50;
 	int mercuryXpos = (int) (500 +.39*AU);
 	int mercuryYpos = 500;
-	Color merColor  = Color.RED;
+	Color mercuryColor  = Color.RED;
 			
-	Planet mercury = new Planet(.39,88.0,merColor,mercuryXpos,mercuryYpos);
+	Planet mercury = new Planet(.39,88.0,mercuryColor,mercuryXpos,mercuryYpos);
 	
 
 }
