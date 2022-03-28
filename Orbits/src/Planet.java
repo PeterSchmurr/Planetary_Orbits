@@ -6,35 +6,54 @@ public class Planet
 	
 			//private String name;
 			//private double initialAngle;
-			private double initial_angle;
-			private double distance;
-			private double orbitalPeriod;
-			private Color color;
-			private int xPos;
-			private int yPos;
+			public double theta;
+			public double distance;
+			public int period;
+			public Color color;
+			public double xPos;
+			public double yPos;
+			public double delta;
 	public Planet ()
 	{
 		// null property constructor
 	}
-	public  Planet(double initial_angle,double distance,double orbitalPeriod,Color color,int xPos,int yPos)
+	public  Planet( double theta,
+					double distance,
+					int period,
+					Color color,
+					double xPos,
+					double yPos)
 	{
 		
-		this.initial_angle=initial_angle;				
+		this.theta=theta;				
 		this.distance = distance;
-		this.orbitalPeriod = orbitalPeriod;
+		this.period = period;
 		this.color = color;
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.delta = 2*3.14/this.period;
+				
 		
 	}
 	
-	public int nextX()
+
+	
+
+	
+	public Color getColor()
 	{
-		return 0;
+		return this.color;
 	}
 	
-	public int nextY()
+	public double nextX()
 	{
-		return 0;
+		this.xPos = 500 + this.distance*50*Math.cos(this.theta + GUI.elapsedDays*delta);
+		return this.xPos;
+	}
+	
+	public double nextY()
+	{
+		this.yPos = 500 + this.distance*50*Math.sin(this.theta + GUI.elapsedDays*delta);
+		return this.yPos;
 	}
 }
