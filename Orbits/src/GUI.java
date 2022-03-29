@@ -3,6 +3,8 @@
 
 // Class for displaying the simulation in 2-D
 
+import static org.junit.Assert.*;
+
 import java.awt.*;
 import java.time.LocalDate;
 //import javax.swing.*;
@@ -22,12 +24,19 @@ import java.util.Calendar;
 
 public class GUI extends JPanel implements ActionListener
 {
-	
+	public Timer tm;
 	public static double elapsedDays;
 	public LocalDate date= LocalDate.of(2019,1,1);
-	Timer tm = new Timer(50,this);
+	
 	private SolarSystem s;
 	JLabel dateDisplay = new JLabel("hi");
+	JButton pause = new JButton("Pause");
+	JButton resume = new JButton("Resume");
+	
+	
+	
+	
+	
 	
 	//dateDisplay.setBounds(50,100,100,30);
 	
@@ -35,6 +44,37 @@ public class GUI extends JPanel implements ActionListener
 	public GUI(SolarSystem s)
 	{
 		this.s = s;
+		
+		
+		
+		ActionListener taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				elapsedDays = elapsedDays + 1;
+				date = date.plusDays(1);
+				//System.out.println(date);
+				repaint();
+			}};
+			 tm = new Timer(100,taskPerformer);
+			tm.start();
+			
+		pause.addActionListener(new ActionListener() {
+
+	        public void actionPerformed(ActionEvent e) {
+	            
+	        	 
+	                System.out.println("63");
+	                pauseButtonPressed();
+	        }
+	    });
+		
+		resume.addActionListener(new ActionListener() {
+
+	        public void actionPerformed(ActionEvent e) {
+	            
+	                resumeButtonPressed();              
+	        }
+	    });
+
 	}
 	
 	public void paintComponent(Graphics g)
@@ -52,35 +92,52 @@ public class GUI extends JPanel implements ActionListener
 			
 		}
 		
-		
-		
+			
 		g.setColor(Color.ORANGE);
 		g.drawOval(500,500, 5, 5);
 		g.fillArc(500,500,5,5,0,360);
 		dateDisplay.setBounds(50,100,100,30);
 		dateDisplay.setText(date.toString());
+		dateDisplay.setFont(new Font("Serif",Font.BOLD,20));
+		dateDisplay.setForeground(Color.WHITE);
+		pause.setEnabled(true);	
+		resume.setEnabled(true);
+		
 		this.add(dateDisplay);
+		this.add(pause);
+		this.add(resume);
 		
 		
 		
-		tm.start();
+		
 			
 			
 	}
 	// equivalent to tick handler in Dr. Racket
-	public void actionPerformed(ActionEvent e)
-	{
-		elapsedDays = elapsedDays + 1;
-		date = date.plusDays(1);
-		System.out.println(date);
-		repaint();
+//	public void actionPerformed(ActionEvent e)
+//	{
+//		elapsedDays = elapsedDays + 1;
+//		date = date.plusDays(1);
+//		//System.out.println(date);
+//		repaint();
 
 		    
 		       
 		        
 		    		
 		//System.out.print(elapsedDays);
+	
+	
+	private void resumeButtonPressed() {
+		tm.start();
+		
 	}
+
+	private void pauseButtonPressed() {
+		tm.stop();
+	}
+
+
 	
 	public static void main(String[] args)
 	{
@@ -96,6 +153,12 @@ public class GUI extends JPanel implements ActionListener
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.add(g);
 		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
