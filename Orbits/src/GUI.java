@@ -4,8 +4,11 @@
 // Class for displaying the simulation in 2-D
 
 import static org.junit.Assert.*;
+import javax.swing.*;
+import javax.swing.event.*;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.time.LocalDate;
 //import javax.swing.*;
 
@@ -29,10 +32,11 @@ public class GUI extends JPanel implements ActionListener
 	public LocalDate date= LocalDate.of(2019,1,1);
 	
 	private SolarSystem s;
+	
 	JLabel dateDisplay = new JLabel("hi");
 	JButton pause = new JButton("Pause");
 	JButton resume = new JButton("Resume");
-	
+	JSlider speedControl = new JSlider(JSlider.HORIZONTAL);
 	
 	
 	
@@ -74,7 +78,18 @@ public class GUI extends JPanel implements ActionListener
 	                resumeButtonPressed();              
 	        }
 	    });
-
+		
+		
+		
+		class SliderListener implements ChangeListener {
+		    public void stateChanged(ChangeEvent e) {
+		        JSlider source = (JSlider)e.getSource();
+		        if (!source.getValueIsAdjusting()) {
+		            int speed = (int)source.getValue();
+		            tm.setDelay(100 - speed);
+		        }    
+		    }}
+		speedControl.addChangeListener(new SliderListener());
 	}
 	
 	public void paintComponent(Graphics g)
@@ -106,6 +121,7 @@ public class GUI extends JPanel implements ActionListener
 		this.add(dateDisplay);
 		this.add(pause);
 		this.add(resume);
+		this.add(speedControl);
 		
 		
 		
@@ -113,19 +129,7 @@ public class GUI extends JPanel implements ActionListener
 			
 			
 	}
-	// equivalent to tick handler in Dr. Racket
-//	public void actionPerformed(ActionEvent e)
-//	{
-//		elapsedDays = elapsedDays + 1;
-//		date = date.plusDays(1);
-//		//System.out.println(date);
-//		repaint();
 
-		    
-		       
-		        
-		    		
-		//System.out.print(elapsedDays);
 	
 	
 	private void resumeButtonPressed() {
@@ -164,16 +168,3 @@ public class GUI extends JPanel implements ActionListener
 
 }
 
-//package simpletesting;
-//import java.time.LocalDate;
-//
-//public class SimpleTesting {
-//    public static void main(String[] args) {
-//        LocalDate today = LocalDate.of(2019,1,1);     //Today
-//        LocalDate tomorrow = today.plusDays(1);     //Plus 1 day
-//        LocalDate yesterday = today.minusDays(1);   //Minus 1 day
-//        System.out.println("Today:     "+today);          
-//        System.out.println("Tomorrow:  "+tomorrow);      
-//        System.out.println("Yesterday: "+yesterday);          
-//    }
-//} 
