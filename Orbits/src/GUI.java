@@ -1,7 +1,3 @@
-//package components;
-
-
-// Class for displaying the simulation in 2-D
 
 import static org.junit.Assert.*;
 import javax.swing.*;
@@ -10,11 +6,12 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-//import javax.swing.*;
+
 
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -23,7 +20,7 @@ import java.util.*;
 import java.util.Date;
 import java.util.Calendar;
 
-public class GUI extends JPanel //implements ActionListener
+public class GUI extends JPanel implements KeyListener
 {
 	public Timer tm;
 	public static double elapsedDays;
@@ -41,13 +38,6 @@ public class GUI extends JPanel //implements ActionListener
 	
 	ButtonGroup timeDirection = new ButtonGroup();
 	boolean movingAhead = true;
-	
-	
-	
-	
-	
-	
-	//dateDisplay.setBounds(50,100,100,30);
 	
 	
 	public GUI(SolarSystem s)
@@ -99,7 +89,8 @@ public class GUI extends JPanel //implements ActionListener
 
 	        public void actionPerformed(ActionEvent e) {
 	            
-	                movingAhead = true;              
+	                movingAhead = true;
+	                pause.requestFocusInWindow();
 	        }
 	    });
 		
@@ -107,7 +98,8 @@ public class GUI extends JPanel //implements ActionListener
 
 	        public void actionPerformed(ActionEvent e) {
 	            
-	                movingAhead = false;              
+	                movingAhead = false;
+	                pause.requestFocusInWindow();
 	        }
 	    });
 		
@@ -122,6 +114,8 @@ public class GUI extends JPanel //implements ActionListener
 		            //System.out.println(speed);
 		        }    
 		    }}
+		
+		
 		speedControl.addChangeListener(new SliderListener());
 		speedControl.setBorder(BorderFactory.createTitledBorder("Speed"));
 		
@@ -131,14 +125,48 @@ public class GUI extends JPanel //implements ActionListener
 		this.add(speedControl);
 		this.add(forward);
 		this.add(backward);
+		
+		pause.addKeyListener(this);
 		timeDirection.add(forward);
 		timeDirection.add(backward);
 		
 		timeDirection.clearSelection();
 		forward.setSelected(true);
-	
 		
+	
+	
 	}
+
+	
+	public void keyPressed(KeyEvent e)
+	{
+		int key = e.getKeyCode();
+				
+		if(key == KeyEvent.VK_D)
+		{
+			if (pause.isFocusOwner())
+			{
+				if (movingAhead)
+				{
+				elapsedDays = elapsedDays + 1;
+				date = date.plusDays(1);
+				repaint();
+				}
+				else
+				{
+					elapsedDays = elapsedDays -1;
+					date = date.plusDays(-1);
+					repaint();
+				}
+				
+				}
+			
+		}
+			
+		}
+//	public void keyReleased(KeyEvent arg0) {}
+//	public void keyReleased(KeyEvent arg0) {}
+	
 	
 	public void paintComponent(Graphics g)
 	{
@@ -192,6 +220,22 @@ public class GUI extends JPanel //implements ActionListener
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.add(g);
 		
+		
+		
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
