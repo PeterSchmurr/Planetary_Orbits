@@ -1,4 +1,4 @@
-//package animation;
+//package components;
 
 
 // Class for displaying the simulation in 2-D
@@ -18,8 +18,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import java.util.*;
 import java.util.Date;
@@ -38,6 +36,13 @@ public class GUI extends JPanel implements ActionListener
 	JButton resume = new JButton("Resume");
 	JSlider speedControl = new JSlider(JSlider.HORIZONTAL);
 	
+	JRadioButton forward = new JRadioButton("");
+	JRadioButton backward = new JRadioButton("");
+	
+	ButtonGroup timeDirection = new ButtonGroup();
+	boolean movingAhead = true;
+	
+	
 	
 	
 	
@@ -53,8 +58,19 @@ public class GUI extends JPanel implements ActionListener
 		
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				elapsedDays = elapsedDays + 1;
-				date = date.plusDays(1);
+				
+				if (movingAhead)
+				{
+					elapsedDays = elapsedDays + 1;
+					date = date.plusDays(1);
+				}
+				else
+				{
+					elapsedDays = elapsedDays - 1;
+					date = date.plusDays(-1);
+				}
+				
+				
 				//System.out.println(date);
 				repaint();
 			}};
@@ -79,6 +95,22 @@ public class GUI extends JPanel implements ActionListener
 	        }
 	    });
 		
+		forward.addActionListener(new ActionListener() {
+
+	        public void actionPerformed(ActionEvent e) {
+	            
+	                movingAhead = true;              
+	        }
+	    });
+		
+		backward.addActionListener(new ActionListener() {
+
+	        public void actionPerformed(ActionEvent e) {
+	            
+	                movingAhead = false;              
+	        }
+	    });
+		
 		
 		
 		class SliderListener implements ChangeListener {
@@ -90,6 +122,15 @@ public class GUI extends JPanel implements ActionListener
 		        }    
 		    }}
 		speedControl.addChangeListener(new SliderListener());
+		
+		this.add(dateDisplay);
+		this.add(pause);
+		this.add(resume);
+		this.add(speedControl);
+		this.add(forward);
+		this.add(backward);
+		timeDirection.add(forward);
+		timeDirection.add(backward);
 	}
 	
 	public void paintComponent(Graphics g)
@@ -114,20 +155,7 @@ public class GUI extends JPanel implements ActionListener
 		dateDisplay.setBounds(50,100,100,30);
 		dateDisplay.setText(date.toString());
 		dateDisplay.setFont(new Font("Serif",Font.BOLD,20));
-		dateDisplay.setForeground(Color.WHITE);
-		pause.setEnabled(true);	
-		resume.setEnabled(true);
-		
-		this.add(dateDisplay);
-		this.add(pause);
-		this.add(resume);
-		this.add(speedControl);
-		
-		
-		
-		
-			
-			
+		dateDisplay.setForeground(Color.WHITE);			
 	}
 
 	
