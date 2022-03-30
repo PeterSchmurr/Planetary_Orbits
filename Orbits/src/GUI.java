@@ -23,7 +23,7 @@ import java.util.*;
 import java.util.Date;
 import java.util.Calendar;
 
-public class GUI extends JPanel implements ActionListener
+public class GUI extends JPanel //implements ActionListener
 {
 	public Timer tm;
 	public static double elapsedDays;
@@ -36,8 +36,8 @@ public class GUI extends JPanel implements ActionListener
 	JButton resume = new JButton("Resume");
 	JSlider speedControl = new JSlider(JSlider.HORIZONTAL);
 	
-	JRadioButton forward = new JRadioButton("");
-	JRadioButton backward = new JRadioButton("");
+	JRadioButton forward = new JRadioButton("forward");
+	JRadioButton backward = new JRadioButton("backward");
 	
 	ButtonGroup timeDirection = new ButtonGroup();
 	boolean movingAhead = true;
@@ -70,10 +70,10 @@ public class GUI extends JPanel implements ActionListener
 					date = date.plusDays(-1);
 				}
 				
-				
-				//System.out.println(date);
 				repaint();
 			}};
+			
+			
 			 tm = new Timer(100,taskPerformer);
 			tm.start();
 			
@@ -82,7 +82,7 @@ public class GUI extends JPanel implements ActionListener
 	        public void actionPerformed(ActionEvent e) {
 	            
 	        	 
-	                System.out.println("63");
+	                //System.out.println("63");
 	                pauseButtonPressed();
 	        }
 	    });
@@ -119,9 +119,11 @@ public class GUI extends JPanel implements ActionListener
 		        if (!source.getValueIsAdjusting()) {
 		            int speed = (int)source.getValue();
 		            tm.setDelay(100 - speed);
+		            //System.out.println(speed);
 		        }    
 		    }}
 		speedControl.addChangeListener(new SliderListener());
+		speedControl.setBorder(BorderFactory.createTitledBorder("Speed"));
 		
 		this.add(dateDisplay);
 		this.add(pause);
@@ -131,6 +133,11 @@ public class GUI extends JPanel implements ActionListener
 		this.add(backward);
 		timeDirection.add(forward);
 		timeDirection.add(backward);
+		
+		timeDirection.clearSelection();
+		forward.setSelected(true);
+	
+		
 	}
 	
 	public void paintComponent(Graphics g)
@@ -188,11 +195,11 @@ public class GUI extends JPanel implements ActionListener
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+//	@Override
+	//public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
+	//}
 
 }
 
