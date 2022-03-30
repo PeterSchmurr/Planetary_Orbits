@@ -164,8 +164,7 @@ public class GUI extends JPanel implements KeyListener
 		}
 			
 		}
-//	public void keyReleased(KeyEvent arg0) {}
-//	public void keyReleased(KeyEvent arg0) {}
+
 	
 	
 	public void paintComponent(Graphics g)
@@ -187,6 +186,30 @@ public class GUI extends JPanel implements KeyListener
 		g.setColor(Color.ORANGE);
 		g.drawOval(500,500, 5, 5);
 		g.fillArc(500,500,5,5,0,360);
+		double et = (s.earth.nextTheta()- Math.PI/2)*-1;
+		int sd = (int)s.saturn.distance;
+		int ed = (int)s.earth.distance;
+		
+		double x01 = 100*Math.sin(et)*50 +500;
+		double y01 = 100*Math.cos(et)*50+500;
+		double x02 = 100*Math.sin(et-Math.PI)*50+500;
+		double y02 = 100*Math.cos(et-Math.PI)*50+500; 
+		
+		double x11 = s.earth.xPos;
+		double y11 = s.earth.yPos;
+		double x12 = 100*Math.sin(et-Math.PI/2)*50+500;
+		double y12 = 100*Math.cos(et-Math.PI/2)*50+500; 
+		
+		double x21 = s.earth.xPos;
+		double y21 = s.earth.yPos;
+		double x22 = 100*Math.sin(et+Math.PI/2)*50+500;
+		double y22 = 100*Math.cos(et+Math.PI/2)*50+500;
+		
+		g.setColor(Color.WHITE);
+		g.drawLine((int)x01,(int)y01,(int)x02,(int)y02);
+	    g.drawLine((int)x11,(int)y11,(int)x12,(int)y12);
+	    g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
+		
 		dateDisplay.setBounds(50,100,100,30);
 		dateDisplay.setText(date.toString());
 		dateDisplay.setFont(new Font("Serif",Font.BOLD,20));

@@ -37,23 +37,26 @@ public class Planet
 	}
 	
 
-	
-
-	
 	public Color getColor()
 	{
 		return this.color;
 	}
 	
+	public double nextTheta()
+	{
+		double t = (this.theta + GUI.elapsedDays*delta);
+		return t;
+	}
+	
 	public double nextX()
 	{
-		this.xPos = 500 + this.distance*50*Math.cos(this.theta + GUI.elapsedDays*delta);
+		this.xPos = 500 + this.distance*50*Math.cos(nextTheta());
 		return this.xPos;
 	}
 	
 	public double nextY()
 	{
-		this.yPos = 500 + this.distance*50*Math.sin(this.theta + GUI.elapsedDays*delta);
+		this.yPos = 500 + this.distance*50*Math.sin(nextTheta());
 		return this.yPos;
 	}
 }
