@@ -29,6 +29,12 @@ public class GUI extends JPanel implements KeyListener
 	private SolarSystem s;
 	
 	JLabel dateDisplay = new JLabel("hi");
+	
+	JLabel noonZenith = new JLabel("noon zenith");
+	JLabel midnightZenith = new JLabel("midnight zenith");
+	JLabel sunriseZenith = new JLabel("sunrise zenith");
+	JLabel sunsetZenith = new JLabel("sunset zenith");
+	
 	JButton pause = new JButton("Pause");
 	JButton resume = new JButton("Resume");
 	JSlider speedControl = new JSlider(JSlider.HORIZONTAL);
@@ -125,6 +131,10 @@ public class GUI extends JPanel implements KeyListener
 		this.add(speedControl);
 		this.add(forward);
 		this.add(backward);
+		this.add(sunsetZenith);
+		this.add(sunriseZenith);
+		this.add(midnightZenith);
+		this.add(noonZenith);
 		
 		pause.addKeyListener(this);
 		timeDirection.add(forward);
@@ -132,9 +142,6 @@ public class GUI extends JPanel implements KeyListener
 		
 		timeDirection.clearSelection();
 		forward.setSelected(true);
-		
-	
-	
 	}
 
 	
@@ -186,36 +193,93 @@ public class GUI extends JPanel implements KeyListener
 		g.setColor(Color.ORANGE);
 		g.drawOval(500,500, 5, 5);
 		g.fillArc(500,500,5,5,0,360);
-		double et = (s.earth.nextTheta()- Math.PI/2)*-1;
-		int sd = (int)s.saturn.distance;
-		int ed = (int)s.earth.distance;
 		
-		double x01 = 100*Math.sin(et)*50 +500;
-		double y01 = 100*Math.cos(et)*50+500;
-		double x02 = 100*Math.sin(et-Math.PI)*50+500;
-		double y02 = 100*Math.cos(et-Math.PI)*50+500; 
+		double te = s.earth.theta;
+		int ds = (int)s.saturn.distance;
+		int de = (int)s.earth.distance;
 		
-		double x11 = s.earth.xPos;
-		double y11 = s.earth.yPos;
-		double x12 = 100*Math.sin(et-Math.PI/2)*50+500;
-		double y12 = 100*Math.cos(et-Math.PI/2)*50+500; 
+		//draw a line passing through the earth and sun
 		
-		double x21 = s.earth.xPos;
-		double y21 = s.earth.yPos;
-		double x22 = 100*Math.sin(et+Math.PI/2)*50+500;
-		double y22 = 100*Math.cos(et+Math.PI/2)*50+500;
-		
-		g.setColor(Color.WHITE);
+		double x01 = 50*(de+ds)*Math.cos(s.earth.nextTheta()) +500;
+		double y01 = 50*(de+ds)*Math.sin(s.earth.nextTheta()) +500;
+		double x02 = 50*(ds-de)*Math.cos((s.earth.nextTheta()+Math.PI)) +500;
+		double y02 = 50*(ds-de)*Math.sin((s.earth.nextTheta()+Math.PI)) +500;
 		g.drawLine((int)x01,(int)y01,(int)x02,(int)y02);
-	    g.drawLine((int)x11,(int)y11,(int)x12,(int)y12);
-	    g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
+		
+		//draw a line passing through the earth perpendicular to the line passing though the earth and sun
+		final double sunriseLineInitialAngle = -1.47;
+		final double noonLineInitialAngle = 3.14;
+		final double sunsetLineInitialAngle = 1.47;
+		final double midnightLineInitialAngle = 0;
+				
+		 
+		//noon line	
+		
+		double x11 = s.earth.nextX();
+		double y11 = s.earth.nextY();
+		double x12 = extremeX(sunriseLineInitialAngle) ;
+		double y12 = extremeY(sunriseLineInitialAngle);	
+		g.drawLine((int)x11,(int)y11,(int)x12,(int)y12);
+	
+		//midnight line
+		
+		double x21 = s.earth.nextX();
+		double y21 = s.earth.nextY();
+		double x22 = extremeX(sunsetLineInitialAngle) ;
+		double y22 = extremeY(sunsetLineInitialAngle);
+		g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
+		
+		
+		
+		
 		
 		dateDisplay.setBounds(50,100,100,30);
 		dateDisplay.setText(date.toString());
 		dateDisplay.setFont(new Font("Serif",Font.BOLD,20));
-		dateDisplay.setForeground(Color.WHITE);			
+		dateDisplay.setForeground(Color.WHITE);	
+		
+
+	}
+	
+	
+	//calculations for extremeX
+	
+	public double theta(double lineInitialAngle)
+	{
+		double t = lineInitialAngle + 2*Math.PI*elapsedDays/(s.earth.period);
+		return t;
+	}
+	
+	public double next_x( double lineInitAngle)
+	{
+		double x= 500+(s.saturn.distance)*50*Math.cos(theta(lineInitAngle));		
+		return x;
 	}
 
+	public double extremeX(double lineInitAngle)
+	{
+		return next_x(lineInitAngle+s.earth.theta);
+		
+	}
+	
+//Calculations for extremeY	
+	
+
+	
+	public double next_y( double lineInitAngle)
+	{
+		double x= 500+(s.saturn.distance)*50*Math.sin(theta(lineInitAngle));		
+		return x;
+	}
+
+	public double extremeY(double lineInitAngle)
+	{
+		return next_y(lineInitAngle+s.earth.theta);
+		
+	}
+	
+	
+	
 	
 	
 	private void resumeButtonPressed() {
