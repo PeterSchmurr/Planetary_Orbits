@@ -28,7 +28,9 @@ public class GUI extends JPanel implements KeyListener
 	
 	private SolarSystem s;
 	
-	JLabel dateDisplay = new JLabel("hi");
+	JLabel dateDisplay = new JLabel("");
+	
+	
 	
 	JLabel noonZenith = new JLabel("noon zenith");
 	JLabel midnightZenith = new JLabel("midnight zenith");
@@ -198,7 +200,7 @@ public class GUI extends JPanel implements KeyListener
 		int ds = (int)s.saturn.distance;
 		int de = (int)s.earth.distance;
 		
-		//draw a line passing through the earth and sun
+		//noon and midnight lines
 		
 		double x01 = 50*(de+ds)*Math.cos(s.earth.nextTheta()) +500;
 		double y01 = 50*(de+ds)*Math.sin(s.earth.nextTheta()) +500;
@@ -206,14 +208,14 @@ public class GUI extends JPanel implements KeyListener
 		double y02 = 50*(ds-de)*Math.sin((s.earth.nextTheta()+Math.PI)) +500;
 		g.drawLine((int)x01,(int)y01,(int)x02,(int)y02);
 		
-		//draw a line passing through the earth perpendicular to the line passing though the earth and sun
+		
 		final double sunriseLineInitialAngle = -1.47;
 		final double noonLineInitialAngle = 3.14;
 		final double sunsetLineInitialAngle = 1.47;
 		final double midnightLineInitialAngle = 0;
 				
 		 
-		//noon line	
+		//sunrise line	
 		
 		double x11 = s.earth.nextX();
 		double y11 = s.earth.nextY();
@@ -221,7 +223,7 @@ public class GUI extends JPanel implements KeyListener
 		double y12 = extremeY(sunriseLineInitialAngle);	
 		g.drawLine((int)x11,(int)y11,(int)x12,(int)y12);
 	
-		//midnight line
+		//sunset line
 		
 		double x21 = s.earth.nextX();
 		double y21 = s.earth.nextY();
@@ -229,7 +231,31 @@ public class GUI extends JPanel implements KeyListener
 		double y22 = extremeY(sunsetLineInitialAngle);
 		g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
 		
+		// zenith labels
 		
+		double sunsetLabelX = x22-50;
+		double sunsetLabelY = y22-50;
+		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
+		this.sunsetZenith.setForeground(Color.WHITE);
+		this.sunsetZenith.setLocation((int)sunsetLabelX, (int)sunsetLabelY);
+		
+		double sunriseLabelX = x12-50;
+		double sunriseLabelY = y12-50;
+		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
+		this.sunriseZenith.setForeground(Color.WHITE);
+		this.sunriseZenith.setLocation((int)sunriseLabelX, (int)sunriseLabelY);
+		
+		double noonLabelX = x02-50;
+		double noonLabelY = y02-50;
+		this.noonZenith.setFont((new Font("Serif",Font.BOLD,20)));
+		this.noonZenith.setForeground(Color.WHITE);
+		this.noonZenith.setLocation((int)noonLabelX, (int)noonLabelY);
+		
+		double midnightLabelX = x01-50;
+		double midnightLabelY = y01-50;
+		this.midnightZenith.setFont((new Font("Serif",Font.BOLD,20)));
+		this.midnightZenith.setForeground(Color.WHITE);
+		this.midnightZenith.setLocation((int)midnightLabelX, (int)midnightLabelY);
 		
 		
 		
