@@ -25,10 +25,15 @@ public class GUI extends JPanel implements KeyListener
 	public Timer tm;
 	public static double elapsedDays;
 	public LocalDate date= LocalDate.of(2019,1,1);
+	public String[][] sunrise_sunset= {{"8:48","8:36","8:05","7:21","6:43","6:22","6:25","6:47","7:11","7:34","8:02","8:31"},
+			                           {"6:36","7:07","7:34","8:01","8:26","8:50","8:58","8:40","8:02","7:18","6:40","6:23"}};
 	
 	private SolarSystem s;
 	
 	JLabel dateDisplay = new JLabel("");
+	JLabel sunriseDisplay = new JLabel();
+	
+	int month = date.getMonthValue();
 	
 	
 	
@@ -61,6 +66,8 @@ public class GUI extends JPanel implements KeyListener
 				{
 					elapsedDays = elapsedDays + 1;
 					date = date.plusDays(1);
+					sunriseZenith.setText("sunrise zenith: " + sunrise_sunset[0][date.getMonthValue()-1]);
+					sunsetZenith.setText("sunset zenith: " + sunrise_sunset[1][date.getMonthValue()-1]);
 				}
 				else
 				{
@@ -233,26 +240,26 @@ public class GUI extends JPanel implements KeyListener
 		
 		// zenith labels
 		
-		double sunsetLabelX = x22-50;
-		double sunsetLabelY = y22-50;
+		double sunsetLabelX = x22;
+		double sunsetLabelY = y22;
 		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.sunsetZenith.setForeground(Color.WHITE);
 		this.sunsetZenith.setLocation((int)sunsetLabelX, (int)sunsetLabelY);
 		
-		double sunriseLabelX = x12-50;
-		double sunriseLabelY = y12-50;
+		double sunriseLabelX = x12;
+		double sunriseLabelY = y12;
 		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.sunriseZenith.setForeground(Color.WHITE);
 		this.sunriseZenith.setLocation((int)sunriseLabelX, (int)sunriseLabelY);
 		
-		double noonLabelX = x02-50;
-		double noonLabelY = y02-50;
+		double noonLabelX = x02;
+		double noonLabelY = y02;
 		this.noonZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.noonZenith.setForeground(Color.WHITE);
 		this.noonZenith.setLocation((int)noonLabelX, (int)noonLabelY);
 		
-		double midnightLabelX = x01-50;
-		double midnightLabelY = y01-50;
+		double midnightLabelX = x01;
+		double midnightLabelY = y01;
 		this.midnightZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.midnightZenith.setForeground(Color.WHITE);
 		this.midnightZenith.setLocation((int)midnightLabelX, (int)midnightLabelY);
@@ -328,7 +335,7 @@ public class GUI extends JPanel implements KeyListener
 		JFrame jf = new JFrame();
 		jf.getContentPane().setBackground(new Color(100,100,150));
 		jf.setTitle("title");
-		jf.setSize(1000,1000);	
+		jf.setSize(1200,1000);	
 		jf.setVisible(true);;
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.add(g);

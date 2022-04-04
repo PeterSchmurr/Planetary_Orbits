@@ -7,6 +7,17 @@ public class SolarSystem
 {
 	public ArrayList<Planet>planetArray = new ArrayList<Planet>();
 	static int AU = 50;
+//	public static String ;
+//	public static String February;
+//	public static String March;
+//	public static String January;
+//	public static String January;
+//	public static String January;
+//	public static String January;
+//	public static String January;
+//	public static String January;
+//	public static String January;
+	
 
 	public int mercuryYpos = 500;
 	
