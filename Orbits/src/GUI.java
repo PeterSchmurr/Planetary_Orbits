@@ -7,7 +7,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 
-
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,12 +32,34 @@ public class GUI extends JPanel implements KeyListener
 	
 	private SolarSystem s;
 	
-	JLabel dateDisplay = new JLabel("");
-	JLabel sunriseDisplay = new JLabel();
+	
 	
 	int month = date.getMonthValue();
 	
+//	JScrollPane sp=new JScrollPane();
+//	JTextPane tp=new JTextPane();
 	
+	public void LoadWebPage()
+	{
+	//setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	setSize(620,440);
+	JScrollPane sp=new JScrollPane();
+	JTextPane tp=new JTextPane();
+	tp.setEditable(false);
+	URL myurl = null;
+	try {
+	    myurl=new URL("http://javatongue.blogspot.com");
+	    } catch (MalformedURLException ex) {ex.printStackTrace();}
+	sp.setViewportView(tp);
+	add(sp);
+	try {
+	    tp.setPage(myurl);
+	    } catch (IOException ex) {ex.printStackTrace();}
+
+	}
+	
+	JLabel dateDisplay = new JLabel("");
+	JLabel sunriseDisplay = new JLabel();
 	
 	JLabel noonZenith = new JLabel("noon zenith");
 	JLabel midnightZenith = new JLabel("midnight zenith");
@@ -55,6 +79,7 @@ public class GUI extends JPanel implements KeyListener
 	
 	public GUI(SolarSystem s)
 	{
+		
 		this.s = s;
 		
 		
@@ -64,16 +89,17 @@ public class GUI extends JPanel implements KeyListener
 				
 				if (movingAhead)
 				{
-					elapsedDays = elapsedDays + 1;
+					elapsedDays = (elapsedDays + 1);
 					date = date.plusDays(1);
-					sunriseZenith.setText("sunrise zenith: " + sunrise_sunset[0][date.getMonthValue()-1]);
-					sunsetZenith.setText("sunset zenith: " + sunrise_sunset[1][date.getMonthValue()-1]);
+					
 				}
 				else
 				{
-					elapsedDays = elapsedDays - 1;
+					elapsedDays = (elapsedDays - 1);
 					date = date.plusDays(-1);
 				}
+				sunriseZenith.setText("sunrise zenith: " + sunrise_sunset[0][date.getMonthValue()-1]);
+				sunsetZenith.setText("sunset zenith: " + sunrise_sunset[1][date.getMonthValue()-1]);
 				
 				repaint();
 			}};
@@ -165,6 +191,11 @@ public class GUI extends JPanel implements KeyListener
 				if (movingAhead)
 				{
 				elapsedDays = elapsedDays + 1;
+				if (elapsedDays == 366)
+						
+						{
+							elapsedDays = 1;
+						}
 				date = date.plusDays(1);
 				repaint();
 				}
@@ -200,8 +231,8 @@ public class GUI extends JPanel implements KeyListener
 		
 			
 		g.setColor(Color.ORANGE);
-		g.drawOval(500,500, 5, 5);
-		g.fillArc(500,500,5,5,0,360);
+		g.drawOval(500,500, 10, 10);
+		g.fillArc(500,500,10,10,0,360);
 		
 		double te = s.earth.theta;
 		int ds = (int)s.saturn.distance;
@@ -216,9 +247,9 @@ public class GUI extends JPanel implements KeyListener
 		g.drawLine((int)x01,(int)y01,(int)x02,(int)y02);
 		
 		
-		final double sunriseLineInitialAngle = -1.47;
+		final double sunriseLineInitialAngle = 1.47;
 		final double noonLineInitialAngle = 3.14;
-		final double sunsetLineInitialAngle = 1.47;
+		final double sunsetLineInitialAngle = -1.47;
 		final double midnightLineInitialAngle = 0;
 				
 		 
@@ -330,7 +361,7 @@ public class GUI extends JPanel implements KeyListener
 	{
 		SolarSystem s = new SolarSystem();
 		GUI g = new GUI(s);
-		
+	
 		g.setOpaque(false);
 		JFrame jf = new JFrame();
 		jf.getContentPane().setBackground(new Color(100,100,150));
