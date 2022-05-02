@@ -22,8 +22,73 @@ import java.util.*;
 import java.util.Date;
 import java.util.Calendar;
 
-public class GUI extends JPanel implements KeyListener
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+//import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.embed.swing.JFXPanel;
+
+import java.time.LocalDate;
+
+
+
+public class GUI extends JPanel implements KeyListener 
 {
+	class DSelector {
+		
+		LocalDate selectedDate;
+		
+		private void display() {
+	        JFrame f = new JFrame("LabelTest");
+	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        JFXPanel jfxPanel = new JFXPanel() {
+	            @Override
+	            public Dimension getPreferredSize() {
+	                return new Dimension(100, 20);
+	            }
+	        };
+	        initJFXPanel(jfxPanel);
+	        
+	        f.add(jfxPanel);
+	        f.pack();
+	        f.setLocationRelativeTo(null);
+	        f.setVisible(true);
+	        
+	    }
+
+	    private void initJFXPanel(JFXPanel jfxPanel) {
+	       
+	        	DatePicker datePicker = new DatePicker();
+	        	datePicker.setValue(LocalDate.now());
+				
+				datePicker.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
+					public void handle(javafx.event.ActionEvent event) {
+						selectedDate = datePicker.getValue();
+						System.out.println("Date selected is :"+ selectedDate);
+					}
+				});
+	            StackPane root = new StackPane();
+	            root.getChildren().add(datePicker);
+	            Scene scene = new Scene(root);
+	            jfxPanel.setScene(scene);
+	            
+	        
+	    }
+	}
+	
+	
+	
+	
+	
+	
 	public Timer tm;
 	public static double elapsedDays;
 	public LocalDate date= LocalDate.of(2019,1,1);
@@ -32,31 +97,12 @@ public class GUI extends JPanel implements KeyListener
 	
 	private SolarSystem s;
 	
+
 	
 	
 	int month = date.getMonthValue();
 	
-//	JScrollPane sp=new JScrollPane();
-//	JTextPane tp=new JTextPane();
-	
-	public void LoadWebPage()
-	{
-	//setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	setSize(620,440);
-	JScrollPane sp=new JScrollPane();
-	JTextPane tp=new JTextPane();
-	tp.setEditable(false);
-	URL myurl = null;
-	try {
-	    myurl=new URL("http://javatongue.blogspot.com");
-	    } catch (MalformedURLException ex) {ex.printStackTrace();}
-	sp.setViewportView(tp);
-	add(sp);
-	try {
-	    tp.setPage(myurl);
-	    } catch (IOException ex) {ex.printStackTrace();}
 
-	}
 	
 	JLabel dateDisplay = new JLabel("");
 	JLabel sunriseDisplay = new JLabel();
@@ -160,6 +206,7 @@ public class GUI extends JPanel implements KeyListener
 		speedControl.addChangeListener(new SliderListener());
 		speedControl.setBorder(BorderFactory.createTitledBorder("Speed"));
 		
+		
 		this.add(dateDisplay);
 		this.add(pause);
 		this.add(resume);
@@ -170,6 +217,8 @@ public class GUI extends JPanel implements KeyListener
 		this.add(sunriseZenith);
 		this.add(midnightZenith);
 		this.add(noonZenith);
+		
+//		this.add(jfxPanel);
 		
 		pause.addKeyListener(this);
 		timeDirection.add(forward);
@@ -361,8 +410,10 @@ public class GUI extends JPanel implements KeyListener
 	{
 		SolarSystem s = new SolarSystem();
 		GUI g = new GUI(s);
-	
+		
 		g.setOpaque(false);
+		
+		
 		JFrame jf = new JFrame();
 		jf.getContentPane().setBackground(new Color(100,100,150));
 		jf.setTitle("title");
@@ -370,8 +421,10 @@ public class GUI extends JPanel implements KeyListener
 		jf.setVisible(true);;
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.add(g);
+	
 		
-		
+		DSelector ds = g.new DSelector();
+		ds.display();
 		
 		
 	}
@@ -397,4 +450,3 @@ public class GUI extends JPanel implements KeyListener
 	//}
 
 }
-

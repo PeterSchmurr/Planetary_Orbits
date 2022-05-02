@@ -1,4 +1,4 @@
-//package animation;
+
 import java.awt.*;
 
 public class Planet
