@@ -6,7 +6,7 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-
+import java.time.temporal.ChronoUnit;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -42,56 +42,13 @@ import java.time.LocalDate;
 
 public class GUI extends JPanel implements KeyListener 
 {
-	class DSelector {
-		
-		LocalDate selectedDate;
-		
-		private void display() {
-	        JFrame f = new JFrame("LabelTest");
-	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        JFXPanel jfxPanel = new JFXPanel() {
-	            @Override
-	            public Dimension getPreferredSize() {
-	                return new Dimension(100, 20);
-	            }
-	        };
-	        initJFXPanel(jfxPanel);
-	        
-	        f.add(jfxPanel);
-	        f.pack();
-	        f.setLocationRelativeTo(null);
-	        f.setVisible(true);
-	        
-	    }
+	
 
-	    private void initJFXPanel(JFXPanel jfxPanel) {
-	       
-	        	DatePicker datePicker = new DatePicker();
-	        	datePicker.setValue(LocalDate.now());
-				
-				datePicker.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
-					public void handle(javafx.event.ActionEvent event) {
-						selectedDate = datePicker.getValue();
-						System.out.println("Date selected is :"+ selectedDate);
-					}
-				});
-	            StackPane root = new StackPane();
-	            root.getChildren().add(datePicker);
-	            Scene scene = new Scene(root);
-	            jfxPanel.setScene(scene);
-	            
-	        
-	    }
-	}
-	
-	
-	
-	
-	
-	
 	public Timer tm;
-	public static double elapsedDays;
-	public LocalDate date= LocalDate.of(2019,1,1);
+
+	public LocalDate date= LocalDate.now();
+	public static double elapsedDays=ChronoUnit.DAYS.between(LocalDate.of(2019,1,1),LocalDate.now());
+	
 	public String[][] sunrise_sunset= {{"8:48","8:36","8:05","7:21","6:43","6:22","6:25","6:47","7:11","7:34","8:02","8:31"},
 			                           {"6:36","7:07","7:34","8:01","8:26","8:50","8:58","8:40","8:02","7:18","6:40","6:23"}};
 	
@@ -128,13 +85,13 @@ public class GUI extends JPanel implements KeyListener
 		
 		this.s = s;
 		
-		
-		
-		ActionListener taskPerformer = new ActionListener() {
+			ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				
 				if (movingAhead)
 				{
+					//elapsedDays = getElapsedDays();
+					
 					elapsedDays = (elapsedDays + 1);
 					date = date.plusDays(1);
 					
@@ -152,14 +109,14 @@ public class GUI extends JPanel implements KeyListener
 			
 			
 			 tm = new Timer(100,taskPerformer);
-			tm.start();
+			 tm.stop();
 			
 		pause.addActionListener(new ActionListener() {
 
 	        public void actionPerformed(ActionEvent e) {
 	            
 	        	 
-	                //System.out.println("63");
+	                
 	                pauseButtonPressed();
 	        }
 	    });
@@ -218,7 +175,8 @@ public class GUI extends JPanel implements KeyListener
 		this.add(midnightZenith);
 		this.add(noonZenith);
 		
-//		this.add(jfxPanel);
+		
+
 		
 		pause.addKeyListener(this);
 		timeDirection.add(forward);
@@ -240,11 +198,7 @@ public class GUI extends JPanel implements KeyListener
 				if (movingAhead)
 				{
 				elapsedDays = elapsedDays + 1;
-				if (elapsedDays == 366)
-						
-						{
-							elapsedDays = 1;
-						}
+
 				date = date.plusDays(1);
 				repaint();
 				}
@@ -423,8 +377,7 @@ public class GUI extends JPanel implements KeyListener
 		jf.add(g);
 	
 		
-		DSelector ds = g.new DSelector();
-		ds.display();
+		
 		
 		
 	}
