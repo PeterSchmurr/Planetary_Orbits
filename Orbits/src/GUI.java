@@ -192,30 +192,82 @@ public class GUI extends JPanel implements KeyListener
 	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
-				
-		if(key == KeyEvent.VK_D)
-		{
-			if (pause.isFocusOwner())
-			{
-				if (movingAhead)
+		
+		switch(key) {
+			case KeyEvent.VK_D:
+				if (pause.isFocusOwner())
+					{
+						if (movingAhead)
+						{
+						elapsedDays = elapsedDays + 1;
+		
+						date = date.plusDays(1);
+						repaint();
+						}
+						
+						
+						
+						else
+						{
+							elapsedDays = elapsedDays -1;
+							date = date.plusDays(-1);
+							repaint();
+						}
+						break;
+						
+						}
+			case KeyEvent.VK_Y:
+				if (pause.isFocusOwner())
 				{
-				elapsedDays = elapsedDays + 1;
-
-				date = date.plusDays(1);
-				repaint();
-				}
-				else
-				{
-					elapsedDays = elapsedDays -1;
-					date = date.plusDays(-1);
+					if (movingAhead)
+					{
+					elapsedDays = elapsedDays + 365;
+	
+					date = date.plusDays(365);
 					repaint();
-				}
+					}
+					
+					
+					
+					else
+					{
+						elapsedDays = elapsedDays -365;
+						date = date.plusDays(-365);
+						repaint();
+					}
+					
+					}
+					
+					}
+		}
+			
 				
-				}
+//		if(key == KeyEvent.VK_D)
+//		{
+//			if (pause.isFocusOwner())
+//			{
+//				if (movingAhead)
+//				{
+//				elapsedDays = elapsedDays + 1;
+//
+//				date = date.plusDays(1);
+//				repaint();
+//				}
+//				
+//				
+//				
+//				else
+//				{
+//					elapsedDays = elapsedDays -1;
+//					date = date.plusDays(-1);
+//					repaint();
+//				}
+//				
+//				}
+//			
+//		}
 			
-		}
-			
-		}
+		
 
 	
 	
@@ -258,35 +310,35 @@ public class GUI extends JPanel implements KeyListener
 		final double midnightLineInitialAngle = 0;
 				
 		 
-		//sunrise line	
-		
-		double x11 = s.earth.nextX();
-		double y11 = s.earth.nextY();
-		double x12 = extremeX(sunriseLineInitialAngle) ;
-		double y12 = extremeY(sunriseLineInitialAngle);	
-		g.drawLine((int)x11,(int)y11,(int)x12,(int)y12);
-	
-		//sunset line
-		
-		double x21 = s.earth.nextX();
-		double y21 = s.earth.nextY();
-		double x22 = extremeX(sunsetLineInitialAngle) ;
-		double y22 = extremeY(sunsetLineInitialAngle);
-		g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
+//		//sunrise line	
+//		
+//		double x11 = s.earth.nextX();
+//		double y11 = s.earth.nextY();
+//		double x12 = extremeX(sunriseLineInitialAngle) ;
+//		double y12 = extremeY(sunriseLineInitialAngle);	
+//		g.drawLine((int)x11,(int)y11,(int)x12,(int)y12);
+//	
+//		//sunset line
+//		
+//		double x21 = s.earth.nextX();
+//		double y21 = s.earth.nextY();
+//		double x22 = extremeX(sunsetLineInitialAngle) ;
+//		double y22 = extremeY(sunsetLineInitialAngle);
+//		g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
 		
 		// zenith labels
-		
-		double sunsetLabelX = x22;
-		double sunsetLabelY = y22;
-		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
-		this.sunsetZenith.setForeground(Color.WHITE);
-		this.sunsetZenith.setLocation((int)sunsetLabelX, (int)sunsetLabelY);
-		
-		double sunriseLabelX = x12;
-		double sunriseLabelY = y12;
-		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
-		this.sunriseZenith.setForeground(Color.WHITE);
-		this.sunriseZenith.setLocation((int)sunriseLabelX, (int)sunriseLabelY);
+//		
+//		double sunsetLabelX = x22;
+//		double sunsetLabelY = y22;
+//		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
+//		this.sunsetZenith.setForeground(Color.WHITE);
+//		this.sunsetZenith.setLocation((int)sunsetLabelX, (int)sunsetLabelY);
+//		
+//		double sunriseLabelX = x12;
+//		double sunriseLabelY = y12;
+//		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
+//		this.sunriseZenith.setForeground(Color.WHITE);
+//		this.sunriseZenith.setLocation((int)sunriseLabelX, (int)sunriseLabelY);
 		
 		double noonLabelX = x02;
 		double noonLabelY = y02;
