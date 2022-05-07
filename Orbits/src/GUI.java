@@ -157,7 +157,6 @@ public class GUI extends JPanel implements KeyListener
 		        if (!source.getValueIsAdjusting()) {
 		            int speed = (int)source.getValue();
 		            tm.setDelay(100 - speed);
-		            //System.out.println(speed);
 		        }    
 		    }}
 		
@@ -187,89 +186,43 @@ public class GUI extends JPanel implements KeyListener
 		timeDirection.clearSelection();
 		forward.setSelected(true);
 	}
-
+	private void adjustElapsedDays(int delta)
+	{
+		if (movingAhead)
+		{
+		elapsedDays = elapsedDays + delta;
+	
+		date = date.plusDays(delta);
+		repaint();
+		}
+		
+		
+		
+		else
+		{
+			elapsedDays = elapsedDays -delta;
+			date = date.plusDays(-delta);
+			repaint();
+		}
+	}
 	
 	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
 		
-		switch(key) {
+		switch(key) 
+		{
 			case KeyEvent.VK_D:
-				if (pause.isFocusOwner())
-					{
-						if (movingAhead)
-						{
-						elapsedDays = elapsedDays + 1;
-		
-						date = date.plusDays(1);
-						repaint();
-						}
-						
-						
-						
-						else
-						{
-							elapsedDays = elapsedDays -1;
-							date = date.plusDays(-1);
-							repaint();
-						}
-						break;
-						
-						}
-			case KeyEvent.VK_Y:
-				if (pause.isFocusOwner())
-				{
-					if (movingAhead)
-					{
-					elapsedDays = elapsedDays + 365;
-	
-					date = date.plusDays(365);
-					repaint();
-					}
-					
-					
-					
-					else
-					{
-						elapsedDays = elapsedDays -365;
-						date = date.plusDays(-365);
-						repaint();
-					}
-					
-					}
-					
-					}
-		}
-			
-				
-//		if(key == KeyEvent.VK_D)
-//		{
-//			if (pause.isFocusOwner())
-//			{
-//				if (movingAhead)
-//				{
-//				elapsedDays = elapsedDays + 1;
-//
-//				date = date.plusDays(1);
-//				repaint();
-//				}
-//				
-//				
-//				
-//				else
-//				{
-//					elapsedDays = elapsedDays -1;
-//					date = date.plusDays(-1);
-//					repaint();
-//				}
-//				
-//				}
-//			
-//		}
-			
-		
+				adjustElapsedDays(1);
 
-	
+						break;						
+
+			case KeyEvent.VK_Y:
+				adjustElapsedDays(365);
+								
+		}
+	}
+			
 	
 	public void paintComponent(Graphics g)
 	{
