@@ -7,42 +7,30 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.geom.*;
 
-import javax.swing.*;
+
 import javax.swing.Timer;
 
 import java.util.*;
-import java.util.Date;
-import java.util.Calendar;
+import java.util.List;
 
-import javafx.scene.control.DatePicker;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-
-//import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.embed.swing.JFXPanel;
-
-import java.time.LocalDate;
 
 
 
 public class GUI extends JPanel implements KeyListener 
 {
 	
+	
+	private static Point2D makePoint(double x, double y) {
+        return new Point2D.Double(x, y);}
 
 	public Timer tm;
 	
@@ -223,6 +211,30 @@ public class GUI extends JPanel implements KeyListener
 		}
 	}
 			
+// series of methods to determine endpoint coordinates for secant segment	
+	 public  Point2D findASecondSecantPoint()
+	    
+	    {
+	    	double secantSlope =-1*(1/((s.earth.yPos - 505.0)/(s.earth.xPos - 505.0)));
+	    	int secantYIntercept = (int) (s.earth.yPos - secantSlope*s.earth.xPos);
+	    	Point2D secantSecondPoint = makePoint(s.earth.xPos + 1 , secantSlope + s.earth.yPos);
+	    	return secantSecondPoint;
+	    }
+	
+	 public List<Point2D> determineSecantEndPoints()
+	 {
+		 try {
+			return LineCircleIntersection.intersection(makePoint(
+					s.earth.xPos,s.earth.yPos), 
+					findASecondSecantPoint(),
+					 makePoint(500,500), 50*s.saturn.distance, false);
+		} catch (NoninvertibleTransformException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	 }
+	
 	
 	public void paintComponent(Graphics g)
 	{
@@ -262,36 +274,70 @@ public class GUI extends JPanel implements KeyListener
 		final double sunsetLineInitialAngle = -1.47;
 		final double midnightLineInitialAngle = 0;
 				
+//	rewrite sunrise and sunset lines as single segment using intersection class method
+		
+		/*
+		 * public static List<Point2D> intersection(
+		 *  Point2D secantP1, earth's current coordinates
+		 *  Point2D secantP2, another point calculated from equation of sunrise/sunset line
+		 * Point2D solarCenter, (505,505)
+		 * double radius, Saturn's  distance from sun
+		 * boolean isSegment) TRUE
+		 */
+		
+		
+//		 try {
+//			List<Point2D> endPoints = 
+//					LineCircleIntersection.intersection
+//					(makePoint(-10,11),
+//							makePoint(10,-9),
+//							makePoint(3,-5),3.0,
+//							false);
+//			System.out.println(endPoints);
+//		} catch (HeadlessException | NoninvertibleTransformException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		 
-//		//sunrise line	
-//		
-//		double x11 = s.earth.nextX();
-//		double y11 = s.earth.nextY();
-//		double x12 = extremeX(sunriseLineInitialAngle) ;
-//		double y12 = extremeY(sunriseLineInitialAngle);	
-//		g.drawLine((int)x11,(int)y11,(int)x12,(int)y12);
-//	
-//		//sunset line
-//		
-//		double x21 = s.earth.nextX();
-//		double y21 = s.earth.nextY();
-//		double x22 = extremeX(sunsetLineInitialAngle) ;
-//		double y22 = extremeY(sunsetLineInitialAngle);
-//		g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
+		
+		
+		//sunrise line	
+		
+		  double x11 = s.earth.nextX(); 
+		  double y11 = s.earth.nextY(); 
+		  double x12 = extremeX(sunriseLineInitialAngle) ; 
+		  double y12 = extremeY(sunriseLineInitialAngle);
+		  
+		  // draw a line between secant points
+		  List<Point2D> endpoints= determineSecantEndPoints();
+		  g.drawLine(
+				  (int)endpoints.get(0).getX(),
+				  (int)endpoints.get(0).getY(),
+				  (int)endpoints.get(1).getX(),
+				  (int)endpoints.get(1).getY());
+		  
+		  //sunset line
+		  
+		  double x21 = s.earth.nextX();
+		  double y21 = s.earth.nextY(); 
+		  double x22 = extremeX(sunsetLineInitialAngle) ; 
+		  double y22 = extremeY(sunsetLineInitialAngle);
+		  //g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
+		 
 		
 		// zenith labels
-//		
-//		double sunsetLabelX = x22;
-//		double sunsetLabelY = y22;
-//		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
-//		this.sunsetZenith.setForeground(Color.WHITE);
-//		this.sunsetZenith.setLocation((int)sunsetLabelX, (int)sunsetLabelY);
-//		
-//		double sunriseLabelX = x12;
-//		double sunriseLabelY = y12;
-//		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
-//		this.sunriseZenith.setForeground(Color.WHITE);
-//		this.sunriseZenith.setLocation((int)sunriseLabelX, (int)sunriseLabelY);
+		
+		double sunsetLabelX = x22;
+		double sunsetLabelY = y22;
+		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
+		this.sunsetZenith.setForeground(Color.WHITE);
+		this.sunsetZenith.setLocation((int)sunsetLabelX, (int)sunsetLabelY);
+		
+		double sunriseLabelX = x12;
+		double sunriseLabelY = y12;
+		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
+		this.sunriseZenith.setForeground(Color.WHITE);
+		this.sunriseZenith.setLocation((int)sunriseLabelX, (int)sunriseLabelY);
 		
 		double noonLabelX = x02;
 		double noonLabelY = y02;
@@ -318,6 +364,10 @@ public class GUI extends JPanel implements KeyListener
 	
 	//calculations for extremeX
 	
+	private Point2D makePoint(double nextX) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	public double theta(double lineInitialAngle)
 	{
 		double t = lineInitialAngle + 2*Math.PI*elapsedDays/(s.earth.period);
@@ -352,10 +402,6 @@ public class GUI extends JPanel implements KeyListener
 		
 	}
 	
-	
-	
-	
-	
 	private void resumeButtonPressed() {
 		tm.start();
 		
@@ -366,7 +412,6 @@ public class GUI extends JPanel implements KeyListener
 	}
 
 
-	
 	public static void main(String[] args)
 	{
 		SolarSystem s = new SolarSystem();
@@ -381,12 +426,7 @@ public class GUI extends JPanel implements KeyListener
 		jf.setSize(1200,1000);	
 		jf.setVisible(true);;
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.add(g);
-	
-		
-		
-		
-		
+		jf.add(g);	
 	}
 
 
