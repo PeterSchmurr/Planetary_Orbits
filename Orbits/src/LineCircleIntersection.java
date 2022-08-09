@@ -2,46 +2,41 @@ import java.util.*;
 import java.awt.geom.*;
  
 public class LineCircleIntersection {
-    public static void main(String[] args) {
-        try {
-            demo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
- 
-    private static void demo() throws NoninvertibleTransformException {
-        Point2D center = makePoint(3, -5);
-        double radius = 3.0;
-        System.out.println("The intersection points (if any) between:");
-        System.out.println("\n  A circle, center (3, -5) with radius 3, and:");
-        System.out.println("\n    a line containing the points (-10, 11) and (10, -9) is/are:");
-        System.out.println("     " + toString(intersection(makePoint(-10, 11), makePoint(10, -9),
-                            center, radius, false)));
-        System.out.println("\n    a segment starting at (-10, 11) and ending at (-11, 12) is/are");
-        System.out.println("     " + toString(intersection(makePoint(-10, 11), makePoint(-11, 12),
-                            center, radius, true)));
-        System.out.println("\n    a horizontal line containing the points (3, -2) and (7, -2) is/are:");
-        System.out.println("     " + toString(intersection(makePoint(3, -2), makePoint(7, -2), center, radius, false)));
-        center.setLocation(0, 0);
-        radius = 4.0;
-        System.out.println("\n  A circle, center (0, 0) with radius 4, and:");
-        System.out.println("\n    a vertical line containing the points (0, -3) and (0, 6) is/are:");
-        System.out.println("     " + toString(intersection(makePoint(0, -3), makePoint(0, 6),
-                            center, radius, false)));
-        System.out.println("\n    a vertical segment starting at (0, -3) and ending at (0, 6) is/are:");
-        System.out.println("     " + toString(intersection(makePoint(0, -3), makePoint(0, 6),
-                            center, radius, true)));
-        center.setLocation(4, 2);
-        radius = 5.0;
-        System.out.println("\n  A circle, center (4, 2) with radius 5, and:");
-        System.out.println("\n    a line containing the points (6, 3) and (10, 7) is/are:");
-        System.out.println("     " + toString(intersection(makePoint(6, 3), makePoint(10, 7),
-                            center, radius, false)));
-        System.out.println("\n    a segment starting at (7, 4) and ending at (11, 8) is/are:");
-        System.out.println("     " + toString(intersection(makePoint(7, 4), makePoint(11, 8),
-                            center, radius, true)));
-    }
+	/*
+	 * public static void main(String[] args) { try { demo(); } catch (Exception e)
+	 * { e.printStackTrace(); } }
+	 * 
+	 * private static void demo() throws NoninvertibleTransformException { Point2D
+	 * center = makePoint(3, -5); double radius = 3.0;
+	 * System.out.println("The intersection points (if any) between:");
+	 * System.out.println("\n  A circle, center (3, -5) with radius 3, and:");
+	 * System.out.
+	 * println("\n    a line containing the points (-10, 11) and (10, -9) is/are:");
+	 * System.out.println("     " + toString(intersection(makePoint(-10, 11),
+	 * makePoint(10, -9), center, radius, false))); System.out.
+	 * println("\n    a segment starting at (-10, 11) and ending at (-11, 12) is/are"
+	 * ); System.out.println("     " + toString(intersection(makePoint(-10, 11),
+	 * makePoint(-11, 12), center, radius, true))); System.out.
+	 * println("\n    a horizontal line containing the points (3, -2) and (7, -2) is/are:"
+	 * ); System.out.println("     " + toString(intersection(makePoint(3, -2),
+	 * makePoint(7, -2), center, radius, false))); center.setLocation(0, 0); radius
+	 * = 4.0; System.out.println("\n  A circle, center (0, 0) with radius 4, and:");
+	 * System.out.
+	 * println("\n    a vertical line containing the points (0, -3) and (0, 6) is/are:"
+	 * ); System.out.println("     " + toString(intersection(makePoint(0, -3),
+	 * makePoint(0, 6), center, radius, false))); System.out.
+	 * println("\n    a vertical segment starting at (0, -3) and ending at (0, 6) is/are:"
+	 * ); System.out.println("     " + toString(intersection(makePoint(0, -3),
+	 * makePoint(0, 6), center, radius, true))); center.setLocation(4, 2); radius =
+	 * 5.0; System.out.println("\n  A circle, center (4, 2) with radius 5, and:");
+	 * System.out.
+	 * println("\n    a line containing the points (6, 3) and (10, 7) is/are:");
+	 * System.out.println("     " + toString(intersection(makePoint(6, 3),
+	 * makePoint(10, 7), center, radius, false))); System.out.
+	 * println("\n    a segment starting at (7, 4) and ending at (11, 8) is/are:");
+	 * System.out.println("     " + toString(intersection(makePoint(7, 4),
+	 * makePoint(11, 8), center, radius, true))); }
+	 */
  //rounds a negative double away from 0 and a positive double towards zero
     public static int roundSpecial(double d)
     {

@@ -1,3 +1,33 @@
+/*import java.awt.Dimension;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class ExImage extends JPanel
+{
+
+    public ExImage()
+    {
+    ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("/gray.png"));
+    JLabel label = new JLabel(imageIcon);
+    add(label);
+    }
+
+    public static void main(String[] args)
+    {
+    JFrame frame = new JFrame();
+    frame.add(new ExImage());
+    frame.setVisible(true);
+    frame.setPreferredSize(new Dimension(200, 300));
+    }
+}*/
+
+
+
+
+
+
 
 import static org.junit.Assert.*;
 import javax.swing.*;
@@ -316,25 +346,25 @@ public class GUI extends JPanel implements KeyListener
 				  (int)endpoints.get(1).getX(),
 				  (int)endpoints.get(1).getY());
 		  
-		  //sunset line
-		  
-		  double x21 = s.earth.nextX();
-		  double y21 = s.earth.nextY(); 
-		  double x22 = extremeX(sunsetLineInitialAngle) ; 
-		  double y22 = extremeY(sunsetLineInitialAngle);
-		  //g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
-		 
+			/*
+			 * //sunset line
+			 * 
+			 * double x21 = s.earth.nextX(); double y21 = s.earth.nextY(); double x22 =
+			 * extremeX(sunsetLineInitialAngle) ; double y22 =
+			 * extremeY(sunsetLineInitialAngle);
+			 * //g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
+			 */		 
 		
 		// zenith labels
 		
-		double sunsetLabelX = x22;
-		double sunsetLabelY = y22;
+		double sunsetLabelX = (int)endpoints.get(0).getX();
+		double sunsetLabelY = (int)endpoints.get(0).getY();
 		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.sunsetZenith.setForeground(Color.WHITE);
 		this.sunsetZenith.setLocation((int)sunsetLabelX, (int)sunsetLabelY);
 		
-		double sunriseLabelX = x12;
-		double sunriseLabelY = y12;
+		double sunriseLabelX = (int)endpoints.get(1).getX();
+		double sunriseLabelY = (int)endpoints.get(1).getY();
 		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.sunriseZenith.setForeground(Color.WHITE);
 		this.sunriseZenith.setLocation((int)sunriseLabelX, (int)sunriseLabelY);
