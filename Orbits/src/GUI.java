@@ -272,6 +272,7 @@ public class GUI extends JPanel implements KeyListener
 		
 		
 		ArrayList<Planet> a = s.getPlanetArray();
+		ArrayList <ZenithLabel>z = s.getZenithLabelArray();
 		
 		for (Planet p : a)
 		{
@@ -280,6 +281,14 @@ public class GUI extends JPanel implements KeyListener
 			g.fillArc((int)p.nextX(),(int)p.nextY(),5,5,0,360);
 			
 		}
+		
+		
+ 
+		  for(Planet lbl : z)
+		  { lbl.setFont((new Font("Serif",Font.BOLD,20)));
+		  lbl.setForeground(Color.WHITE); 
+		  lbl.setLocation((int)nextX(), (int)nextY()); }
+		 
 		
 			
 		g.setColor(Color.ORANGE);
@@ -357,17 +366,17 @@ public class GUI extends JPanel implements KeyListener
 		
 		// zenith labels
 		
-		double sunsetLabelX = (int)endpoints.get(0).getX();
-		double sunsetLabelY = (int)endpoints.get(0).getY();
+		//double sunsetLabelX = (int)endpoints.get(0).getX();
+		//double sunsetLabelY = (int)endpoints.get(0).getY();
 		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.sunsetZenith.setForeground(Color.WHITE);
-		this.sunsetZenith.setLocation((int)sunsetLabelX, (int)sunsetLabelY);
+		this.sunsetZenith.setLocation((int)z.get(1).nextX() , (int)z.get(1).nextY());
 		
-		double sunriseLabelX = (int)endpoints.get(1).getX();
-		double sunriseLabelY = (int)endpoints.get(1).getY();
+		//double sunriseLabelX = (int)endpoints.get(1).getX();
+		//double sunriseLabelY = (int)endpoints.get(1).getY();
 		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.sunriseZenith.setForeground(Color.WHITE);
-		this.sunriseZenith.setLocation((int)sunriseLabelX, (int)sunriseLabelY);
+		this.sunriseZenith.setLocation((int)z.get(0).nextX() , (int)z.get(0).nextY());
 		
 		double noonLabelX = x02;
 		double noonLabelY = y02;
@@ -394,6 +403,14 @@ public class GUI extends JPanel implements KeyListener
 	
 	//calculations for extremeX
 	
+	private int nextY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	private int nextX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	private Point2D makePoint(double nextX) {
 		// TODO Auto-generated method stub
 		return null;
@@ -452,7 +469,7 @@ public class GUI extends JPanel implements KeyListener
 		
 		JFrame jf = new JFrame();
 		jf.getContentPane().setBackground(new Color(100,100,150));
-		jf.setTitle("title");
+		jf.setTitle("Planetary Orbits");
 		jf.setSize(1200,1000);	
 		jf.setVisible(true);;
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

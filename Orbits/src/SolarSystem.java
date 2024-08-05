@@ -6,6 +6,7 @@ import java.awt.*;
 public class SolarSystem 
 {
 	public ArrayList<Planet>planetArray = new ArrayList<Planet>();
+	public ArrayList<ZenithLabel> zenithLabelArray = new ArrayList<ZenithLabel>();
 	static int AU = 50;
 //	public static String ;
 //	public static String February;
@@ -62,6 +63,18 @@ public class SolarSystem
 								Color.ORANGE,
 								500 +9.54*AU,
 								500);
+	ZenithLabel sunsetLabel = new ZenithLabel("sunset",
+												-3.14,
+												9.54,
+												365,
+												500+9.54*AU,
+												500.0);
+	ZenithLabel sunriseLabel = new ZenithLabel("sunrise",
+												0.0,
+												9.54,
+												365,
+												500+9.54*AU,
+												500.0);
 	
     public void buildSolarSystem()
     {
@@ -71,6 +84,9 @@ public class SolarSystem
     	planetArray.add(mars);
     	planetArray.add(jupiter);
     	planetArray.add(saturn);
+    	zenithLabelArray.add(sunsetLabel);
+    	zenithLabelArray.add(sunriseLabel);
+    	
     	
     }
     
@@ -80,4 +96,9 @@ public class SolarSystem
     	return planetArray;
     }
     
+    public ArrayList<ZenithLabel> getZenithLabelArray() 
+    {
+        this.buildSolarSystem();
+        return zenithLabelArray;  
+    }
 }

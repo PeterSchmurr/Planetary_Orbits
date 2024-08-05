@@ -1,7 +1,9 @@
 
 import java.awt.*;
+import javax.swing.JLabel;
 
-public class Planet
+public class Planet extends JLabel
+
 {
 	
 			//private String name;
