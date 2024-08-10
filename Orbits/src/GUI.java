@@ -1,54 +1,16 @@
-/*import java.awt.Dimension;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-public class ExImage extends JPanel
-{
-
-    public ExImage()
-    {
-    ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("/gray.png"));
-    JLabel label = new JLabel(imageIcon);
-    add(label);
-    }
-
-    public static void main(String[] args)
-    {
-    JFrame frame = new JFrame();
-    frame.add(new ExImage());
-    frame.setVisible(true);
-    frame.setPreferredSize(new Dimension(200, 300));
-    }
-}*/
-
-
-
-
-
-
 
 import static org.junit.Assert.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-
-
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.geom.*;
-
-
 import javax.swing.Timer;
-
 import java.util.*;
 import java.util.List;
 
@@ -64,8 +26,6 @@ public class GUI extends JPanel implements KeyListener
 
 	public Timer tm;
 	
-
-
 	public LocalDate date= LocalDate.now();
 	public static double elapsedDays=ChronoUnit.DAYS.between(LocalDate.of(2019,1,1),LocalDate.now());
 	
@@ -74,15 +34,14 @@ public class GUI extends JPanel implements KeyListener
 	
 	private SolarSystem s;
 	
-
-	
-	
 	int month = date.getMonthValue();
-	
-
 	
 	JLabel dateDisplay = new JLabel("");
 	JLabel sunriseDisplay = new JLabel();
+	
+	JLabel percentMoonCycle = new JLabel("");
+	JLabel percentMoonCycleLabel = new JLabel("");
+	
 	
 	JLabel noonZenith = new JLabel("noon zenith");
 	JLabel midnightZenith = new JLabel("midnight zenith");
@@ -193,6 +152,9 @@ public class GUI extends JPanel implements KeyListener
 		this.add(sunriseZenith);
 		this.add(midnightZenith);
 		this.add(noonZenith);
+		
+		this.add(this.percentMoonCycle);
+		this.add(this.percentMoonCycleLabel);
 		
 		
 
@@ -355,25 +317,16 @@ public class GUI extends JPanel implements KeyListener
 				  (int)endpoints.get(1).getX(),
 				  (int)endpoints.get(1).getY());
 		  
-			/*
-			 * //sunset line
-			 * 
-			 * double x21 = s.earth.nextX(); double y21 = s.earth.nextY(); double x22 =
-			 * extremeX(sunsetLineInitialAngle) ; double y22 =
-			 * extremeY(sunsetLineInitialAngle);
-			 * //g.drawLine((int)x21,(int)y21,(int)x22,(int)y22);
-			 */		 
+	 
 		
 		// zenith labels
 		
-		//double sunsetLabelX = (int)endpoints.get(0).getX();
-		//double sunsetLabelY = (int)endpoints.get(0).getY();
+
 		this.sunsetZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.sunsetZenith.setForeground(Color.WHITE);
 		this.sunsetZenith.setLocation((int)z.get(1).nextX() , (int)z.get(1).nextY());
 		
-		//double sunriseLabelX = (int)endpoints.get(1).getX();
-		//double sunriseLabelY = (int)endpoints.get(1).getY();
+
 		this.sunriseZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.sunriseZenith.setForeground(Color.WHITE);
 		this.sunriseZenith.setLocation((int)z.get(0).nextX() , (int)z.get(0).nextY());
@@ -389,6 +342,18 @@ public class GUI extends JPanel implements KeyListener
 		this.midnightZenith.setFont((new Font("Serif",Font.BOLD,20)));
 		this.midnightZenith.setForeground(Color.WHITE);
 		this.midnightZenith.setLocation((int)midnightLabelX, (int)midnightLabelY);
+		
+		
+	    this.percentMoonCycle.setLocation(50, 200);
+	    this.percentMoonCycle.setText(PhaseCalculator.currentPhase(elapsedDays));
+	    this.percentMoonCycle.setFont(new Font("Serif", 1, 20));
+	    this.percentMoonCycle.setForeground(Color.WHITE);
+	    
+	    this.percentMoonCycleLabel.setLocation(50, 180);
+	    this.percentMoonCycleLabel.setText("Lunar Phase");
+	    this.percentMoonCycleLabel.setFont(new Font("Serif", 1, 20));
+	    this.percentMoonCycleLabel.setForeground(Color.WHITE);
+
 		
 		
 		
