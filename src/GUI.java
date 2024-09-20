@@ -1,3 +1,4 @@
+//display solar system
 
 import static org.junit.Assert.*;
 import javax.swing.*;
