@@ -44,7 +44,7 @@ public class GUI extends JPanel implements KeyListener
 	JLabel percentMoonCycleLabel = new JLabel("");
 	
 	JLabel Sirius = new JLabel("Sirius");
-	
+	JLabel Betelgeuse = new JLabel("Betelgeuse");
 	
 	JLabel noonZenith = new JLabel("noon zenith");
 	JLabel midnightZenith = new JLabel("midnight zenith");
@@ -162,6 +162,7 @@ public class GUI extends JPanel implements KeyListener
 		this.add(this.percentMoonCycleLabel);
 		
 		this.add(Sirius);
+		this.add(Betelgeuse);
 		
 		
 
@@ -362,9 +363,12 @@ public class GUI extends JPanel implements KeyListener
 	    this.percentMoonCycleLabel.setForeground(Color.WHITE);
 	    
 	    this.Sirius.setFont((new Font("Serif",Font.BOLD,20)));
-		this.Sirius.setForeground(Color.WHITE);
-		this.Sirius.setLocation(850,500);
+		this.Sirius.setForeground(Color.YELLOW);
+		this.Sirius.setLocation(366,823);
 
+	    this.Betelgeuse.setFont((new Font("Serif",Font.BOLD,20)));
+		this.Betelgeuse.setForeground(Color.YELLOW);
+		this.Betelgeuse.setLocation(450,850);
 		
 		
 		

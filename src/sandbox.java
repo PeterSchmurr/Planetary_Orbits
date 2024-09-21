@@ -2,9 +2,11 @@ import java.math.*;
 
 public class sandbox {
 	
-	private static double[] polarToRectangularCoordinates(double radius,double theta)
+	private static double[] transitTimeToRectangularCoordinates(double radius,double transitTime)
 	{
 		double coords[] = {0,0};
+		
+		double theta = 360 + transitTime*15; 
 		
 		double thetaInRadians = Math.toRadians(theta);
 		
@@ -21,7 +23,7 @@ public class sandbox {
 	public static void main(String[] args)
 	{
 		double[] coords;
-		coords = polarToRectangularCoordinates(350,359);
+		coords = transitTimeToRectangularCoordinates(350,6.5);
 		System.out.println(coords[0]);
 		System.out.println(coords[1]);	
 	}
