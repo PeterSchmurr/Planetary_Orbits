@@ -1,0 +1,23 @@
+     https://aa.usno.navy.mil/data/mrst
+                     
+
+ Astronomical Applications Department                      
+                             U. S. Naval Observatory                            
+                            Washington, DC 20392-5420                           
+     
+                                Sirius                                
+     
+                                                                      
+           Location:     0°00'00.0", N35°00'00.0",     0m           
+              (Longitude referred to Greenwich meridian)              
+     
+                 Time Zone:  5h 00m west of Greenwich                 
+     
+      Date               Rise  Az.       Transit Alt.       Set  Az.
+     (Zone)  
+                          h  m   °         h  m  °          h  m   °
+2024 Sep 19 (Thu)        20:34 110        01:52 38S        07:05 250                 
+2024 Sep 20 (Fri)        20:30 110        01:48 38S        07:01 250                 
+2024 Sep 21 (Sat)        20:26 110        01:44 38S        06:57 250                 
+2024 Sep 22 (Sun)        20:22 110        01:40 38S        06:53 250                 
+2024 Sep 23 (Mon)        20:18 110        01:36 38S        06:49 250   
