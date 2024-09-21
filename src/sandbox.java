@@ -23,7 +23,7 @@ public class sandbox {
 	public static void main(String[] args)
 	{
 		double[] coords;
-		coords = transitTimeToRectangularCoordinates(350,6.5);
+		coords = transitTimeToRectangularCoordinates(350,22.75);
 		System.out.println(coords[0]);
 		System.out.println(coords[1]);	
 	}
