@@ -47,6 +47,7 @@ public class GUI extends JPanel implements KeyListener
 	JLabel Betelgeuse = new JLabel("Betelgeuse");
 	JLabel Aldebaran = new JLabel("Aldebaran");
 	JLabel Almach = new JLabel("Almach");
+	JLabel Capella = new JLabel("Capella");
 	// goto 160
 	
 	JLabel noonZenith = new JLabel("noon zenith");
@@ -168,6 +169,7 @@ public class GUI extends JPanel implements KeyListener
 		this.add(Betelgeuse);
 		this.add(Aldebaran);
 		this.add(Almach);
+		this.add(Capella);
 		
 		//goto 375
 		
@@ -384,6 +386,10 @@ public class GUI extends JPanel implements KeyListener
 	    this.Almach.setFont((new Font("Serif",Font.BOLD,20)));
 		this.Almach.setForeground(Color.YELLOW);
 		this.Almach.setLocation(830,390);
+		
+	    this.Capella.setFont((new Font("Serif",Font.BOLD,20)));
+		this.Capella.setForeground(Color.YELLOW);
+		this.Capella.setLocation(500,375);
 		
 		dateDisplay.setBounds(50,100,100,30);
 		dateDisplay.setText(date.toString());
