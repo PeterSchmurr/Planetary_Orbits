@@ -1,0 +1,7 @@
+https://eco.mtk.nao.ac.jp/cgi-bin/koyomi/cande/planet_ecliptic_en.cgi
+    - update Theta in SolarSystem.Java
+  
+
+GUI line 31  public static double elapsedDays=ChronoUnit.DAYS.between(LocalDate.of(2019,1,1),LocalDate.now());
+   - update to 2025, 1,1
+

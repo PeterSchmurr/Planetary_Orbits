@@ -28,7 +28,7 @@ public class GUI extends JPanel implements KeyListener
 	public Timer tm;
 	
 	public LocalDate date= LocalDate.now();
-	public static double elapsedDays=ChronoUnit.DAYS.between(LocalDate.of(2019,1,1),LocalDate.now());
+	public static double elapsedDays=ChronoUnit.DAYS.between(LocalDate.of(2025,1,1),LocalDate.now());
 	
 	public String[][] sunrise_sunset= {{"8:48","8:36","8:05","7:21","6:43","6:22","6:25","6:47","7:11","7:34","8:02","8:31"},
 			                           {"6:36","7:07","7:34","8:01","8:26","8:50","8:58","8:40","8:02","7:18","6:40","6:23"}};
@@ -362,7 +362,7 @@ public class GUI extends JPanel implements KeyListener
 		
 		
 	    this.percentMoonCycle.setLocation(50, 200);
-	    this.percentMoonCycle.setText(PhaseCalculator.currentPhase(elapsedDays));
+	    this.percentMoonCycle.setText(String.valueOf(PhaseCalculator.currentPhase(elapsedDays)));
 	    this.percentMoonCycle.setFont(new Font("Serif", 1, 20));
 	    this.percentMoonCycle.setForeground(Color.WHITE);
 	    
